@@ -15,5 +15,8 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        List<Apple> inventory = new ArrayList<>();
+
+        List<Apple> redAndHeavyApples = filterApples(inventory, new AppleRedAndHeavyPredicate());
     }
 }
