@@ -34,6 +34,17 @@ public class Main {
         List<Apple> redAndHeavyApples = filterApples(inventory, new AppleRedAndHeavyPredicate());
         System.out.println(redAndHeavyApples);
 
+        // quiz 2-1
         prettyPrintApple(inventory, new AppleFancyFormatter());
+
+
+        List<Apple> redApples = filterApples(inventory, new ApplePredicate() {
+            @Override
+            public boolean test(Apple apple) {
+                return apple.getColor() == Color.RED;
+            }
+        });
+        System.out.println(redApples);
+
     }
 }
