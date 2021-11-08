@@ -1,4 +1,6 @@
-package modernjava.ch02;
+package modernjava.ch02.predicate;
+
+import modernjava.ch02.Apple;
 
 import static modernjava.ch02.Color.RED;
 
