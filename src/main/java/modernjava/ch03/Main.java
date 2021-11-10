@@ -1,5 +1,7 @@
 package modernjava.ch03;
 
+import modernjava.ch02.Apple;
+import modernjava.ch02.Color;
 import modernjava.ch02.predicate.Predicate;
 
 import java.io.BufferedReader;
@@ -10,9 +12,12 @@ import java.nio.Buffer;
 import java.nio.file.DirectoryStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
+
+import static modernjava.ch02.Color.RED;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -20,7 +25,35 @@ public class Main {
         // example3_3();
         // example3_4_1();
         // example3_4_2();
-        example3_4_3();
+        // example3_4_3();
+        example3_7();
+    }
+
+    private static void example3_7() {
+        List<Apple> inventory = new ArrayList<>();
+        inventory.add(new Apple(155, RED));
+        inventory.add(new Apple(100, RED));
+        inventory.add(new Apple(150, Color.GREEN));
+
+        // 3.7.1 코드 전달
+        inventory.sort(new AppleComparator());
+        System.out.println(inventory);
+
+        // 3.7.2 익명 클래스 사용
+        inventory.sort(new Comparator<Apple>() {
+            @Override
+            public int compare(Apple o1, Apple o2) {
+                return Integer.compare(o1.getWeight(), o2.getWeight());
+            }
+        });
+
+        // 3.7.3 람다 표현식 사용
+        inventory.sort((Apple a1, Apple a2) -> Integer.compare(a1.getWeight(), a2.getWeight()));
+        inventory.sort((a1, a2) -> Integer.compare(a1.getWeight(), a2.getWeight())); // 형식 추론
+        inventory.sort(Comparator.comparingInt(apple -> apple.getWeight())); // 키 추출 방법을 전달하는 방식
+
+        // 3.7.4 메서드 참조 사용
+        inventory.sort(Comparator.comparingInt(Apple::getWeight));
     }
 
     private static void example3_4_3() {
@@ -83,7 +116,6 @@ public class Main {
     @FunctionalInterface
     public interface BufferedReaderProcessor {
         String process(BufferedReader br) throws IOException;
-
     }
 
     private static String processFile(BufferedReaderProcessor p) throws IOException {
