@@ -4,6 +4,7 @@ import modernjava.ch04.Dish;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,8 +22,40 @@ public class Main {
         example5_2_2(menu);
         example5_2_3(menu);
         quiz5_1(menu);
-        example5_3_2();
         quiz5_2();
+        example5_4(menu);
+    }
+
+    private static void example5_4(List<Dish> menu) {
+        // 5.4.1
+        if (menu.stream().anyMatch(Dish::isVegetarian)) {
+            System.out.println("the menu is (somewhat) vegetarian friendly!!");
+        }
+
+        // 5.4.2
+        if (menu.stream().allMatch(dish -> dish.getCalories() < 1000)) {
+            System.out.println("all match under 1000 calories");
+        }
+
+        // 5.4.2 NONE MATCH
+        if (menu.stream().noneMatch(dish -> dish.getCalories() >= 1000)) {
+            System.out.println(" none match!");
+        }
+
+        // 5.4.3
+        Optional<Dish> dish = menu.stream()
+                .filter(Dish::isVegetarian)
+                .findAny();
+        menu.stream()
+                .filter(Dish::isVegetarian)
+                .findAny()
+                .ifPresent(d -> System.out.println(d.getName()));
+
+        // 5.4.4
+        Optional<Integer> firstInteger = Stream.of(1, 2, 3, 4, 5)
+                .map(n -> n * n)
+                .filter(n -> n % 3 == 0)
+                .findFirst();
     }
 
     private static void quiz5_2() {
