@@ -17,6 +17,7 @@ public class Main {
                 new Dish("chicken", false, 400, Dish.Type.MEAT),
                 new Dish("french fries", true, 530, Dish.Type.OTHER)
         );
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
 
         example5_2_1(menu);
         example5_2_2(menu);
@@ -24,6 +25,37 @@ public class Main {
         quiz5_1(menu);
         quiz5_2();
         example5_4(menu);
+        example5_5_1(numbers);
+        example5_5_2(numbers);
+        quiz5_3(menu);
+    }
+
+    // map reduce 패턴
+    private static void quiz5_3(List<Dish> menu) {
+        Integer count = menu.stream()
+                .map(x -> 1)
+                .reduce(0, Integer::sum);
+        System.out.println(count);
+
+        System.out.println(menu.stream().count());
+    }
+
+    private static void example5_5_2(List<Integer> numbers) {
+        Optional<Integer> max = numbers.stream()
+                .reduce((x, y) -> x > y ? x : y);
+        System.out.println(max);
+    }
+
+    private static void example5_5_1(List<Integer> numbers) {
+        int sum = 0;
+        for (int x : numbers) {
+            sum += x;
+        }
+        System.out.println(sum);
+
+        int reduce = numbers.stream()
+                .reduce(0, (a, b) -> a + b);
+        System.out.println(reduce);
     }
 
     private static void example5_4(List<Dish> menu) {
