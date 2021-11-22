@@ -2,11 +2,13 @@ package modernjava.ch05;
 
 import modernjava.ch04.Dish;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Main {
@@ -31,6 +33,98 @@ public class Main {
         quiz5_3(menu);
 
         example5_6();
+
+        example5_7(menu);
+
+        example5_8();
+        quiz5_4();
+    }
+
+    private static void quiz5_4() {
+        Stream.iterate(new int[]{0, 1}, t -> new int[]{t[1], t[0] + t[1]})
+                .limit(20)
+                .forEach(t -> System.out.println("(" + t[0] + ", " + t[1] + ")"));
+    }
+
+    private static void example5_8() {
+        // 5.8.1
+        Stream<String> stream = Stream.of("Modern ", "Java ", "In ", "Action");
+        stream.map(String::toUpperCase).forEach(System.out::println);
+        Stream<String> empty = Stream.empty();
+
+        // 5.8.2 nullable stream
+        String value = System.getProperty("test");
+        Stream<String> valueStream = value == null ? Stream.empty() : Stream.of(value);
+        Stream<String> valueStream2 = Stream.of("config", "home", "user")
+                .flatMap(key -> Stream.ofNullable(System.getProperty(key)));
+
+        // 5.8.4 of File
+        long uniqueWords = 0;
+        // try (Stream<String> lines = Files.lines(Paths.get("data.txt"), Charset.defaultCharset())) {
+        //     uniqueWords = lines.flatMap(line -> Arrays.stream(line.split(" ")))
+        //             .distinct()
+        //             .count();
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
+
+        // 5.8.5 infinite stream
+        Stream.iterate(0, n -> n + 2)
+                .limit(10)
+                .forEach(System.out::println);
+
+        // with predicate
+        IntStream.iterate(0, n -> n < 100, n -> n + 4)
+                .forEach(System.out::println);
+
+        // generate
+        Stream.generate(Math::random)
+                .limit(5)
+                .forEach(System.out::println);
+    }
+
+    private static void example5_7(List<Dish> menu) {
+        // boxing, unboxing 비용이 발생한다.
+        int calories = menu.stream()
+                .map(Dish::getCalories)
+                .reduce(0, Integer::sum);
+
+        // 5.7.1
+        int sum = menu.stream()
+                .mapToInt(Dish::getCalories)
+                .sum();
+        IntStream intStream = menu.stream()
+                .mapToInt(Dish::getCalories);
+        Stream<Integer> boxed = intStream.boxed();
+
+        // OptionalInt
+        OptionalInt max = menu.stream()
+                .mapToInt(Dish::getCalories)
+                .max();
+        int m = max.orElse(1);
+
+        // 5.7.2
+        // 짝수 갯수 출력
+        IntStream even = IntStream.rangeClosed(1, 100)
+                .filter(v -> v % 2 == 0);
+        System.out.println(even.count());
+
+        // 5.7.3
+        Stream<int[]> stream = IntStream.rangeClosed(1, 100).boxed()
+                .flatMap(a -> IntStream.rangeClosed(a, 100)
+                        .filter(b -> Math.sqrt(a * a + b * b) % 1 == 0)
+                        .mapToObj(b -> new int[]{a, b, (int) Math.sqrt(a * a + b * b)})
+                );
+        stream.limit(5).forEach(t -> System.out.println(t[0] + ", " + t[1] + ", " + t[2]));
+
+        Stream<double[]> stream2 = IntStream.rangeClosed(1, 100).boxed()
+                .flatMap(
+                        a -> IntStream.rangeClosed(a, 100)
+                                .mapToObj(b -> new double[]{a, b, Math.sqrt(a * a + b * b)})
+                                .filter(t -> t[2] % 1 == 0)
+                );
+
+        stream2.limit(5).forEach(t -> System.out.println(t[0] + ", " + t[1] + ", " + t[2]));
 
     }
 
@@ -103,7 +197,7 @@ public class Main {
         // 8. 전체 트랙잭션중 최소값
         Optional<Integer> quiz8 = transactions.stream()
                 .map(Transaction::getValue)
-                .reduce((v1, v2) ->  v1 < v2 ? v1 : v2);
+                .reduce((v1, v2) -> v1 < v2 ? v1 : v2);
         // transactions.stream().min(Comparator.comparing(Transaction::getValue));
         System.out.println(quiz8);
     }
