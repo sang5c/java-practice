@@ -11,8 +11,25 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.*;
+
 public class Main {
     public static void main(String[] args) {
+
+        Trader raoul = new Trader("Raoul", "Cambridge");
+        Trader mario = new Trader("Mario", "Milan");
+        Trader alan = new Trader("Alan", "Cambridge");
+        Trader brian = new Trader("Brian", "Cambridge");
+
+        List<Transaction> transactions = Arrays.asList(
+                new Transaction(brian, 2011, 300),
+                new Transaction(raoul, 2012, 1000),
+                new Transaction(raoul, 2011, 400),
+                new Transaction(mario, 2012, 710),
+                new Transaction(mario, 2012, 700),
+                new Transaction(alan, 2012, 950)
+        );
+
         List<Dish> menu = Arrays.asList(
                 new Dish("seasonal fruit", true, 120, Dish.Type.OTHER),
                 new Dish("prawns", false, 300, Dish.Type.FISH),
@@ -32,12 +49,51 @@ public class Main {
         example5_5_2(numbers);
         quiz5_3(menu);
 
-        example5_6();
+        example5_6(transactions);
 
         example5_7(menu);
 
         example5_8();
         quiz5_4();
+
+        example6_1(transactions);
+        example6_2(menu);
+    }
+
+    private static void example6_2(List<Dish> menu) {
+        menu.stream().collect(Collectors.counting());
+        menu.stream().count();
+
+        // 6.2.1 스트림에서 최대 최소 검색
+        Comparator<Dish> dishComparator = Comparator.comparingInt(Dish::getCalories);
+        Optional<Dish> dish = menu.stream().collect(maxBy(dishComparator));
+        // 6.2.2 요약 연산
+        // 추가적으로 averizing, sumarizing 기능등 여러가지가 있다.
+        int totalCalories = menu.stream().collect(summingInt(Dish::getCalories));
+        // 6.2.3 문자열 연결
+        menu.stream().map(Dish::getName).collect(Collectors.joining(", "));
+        // 6.2.4 범용 리듀싱 요약 연산
+        menu.stream().collect(reducing(0, Dish::getCalories, (i, j) -> i + j));
+    }
+
+    private static void example6_1(List<Transaction> transactions) {
+        // 명령형
+        Map<Currency, List<Transaction>> transactionByCurrencies = new HashMap<>();
+
+        for (Transaction transaction : transactions) {
+            Currency currency = transaction.getCurrency();
+            List<Transaction> transactionForCurrency = transactionByCurrencies.get(currency);
+
+            if (transactionForCurrency == null) {
+                transactionForCurrency = new ArrayList<>();
+                transactionByCurrencies.put(currency, transactionForCurrency);
+            }
+            transactionForCurrency.add(transaction);
+        }
+
+        // after
+        Map<Currency, List<Transaction>> collect = transactions.stream()
+                .collect(groupingBy(Transaction::getCurrency));
     }
 
     private static void quiz5_4() {
@@ -128,20 +184,7 @@ public class Main {
 
     }
 
-    private static void example5_6() {
-        Trader raoul = new Trader("Raoul", "Cambridge");
-        Trader mario = new Trader("Mario", "Milan");
-        Trader alan = new Trader("Alan", "Cambridge");
-        Trader brian = new Trader("Brian", "Cambridge");
-
-        List<Transaction> transactions = Arrays.asList(
-                new Transaction(brian, 2011, 300),
-                new Transaction(raoul, 2012, 1000),
-                new Transaction(raoul, 2011, 400),
-                new Transaction(mario, 2012, 710),
-                new Transaction(mario, 2012, 700),
-                new Transaction(alan, 2012, 950)
-        );
+    private static void example5_6(List<Transaction> transactions) {
 
         // 1. 2011년에 일어난 모든 트랜잭션을 찾아 오름차순
         List<Transaction> quiz1 = transactions.stream()

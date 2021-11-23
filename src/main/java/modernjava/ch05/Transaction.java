@@ -1,9 +1,12 @@
 package modernjava.ch05;
 
+import java.util.Currency;
+
 public class Transaction {
     private final Trader trader;
     private final int year;
     private final int value;
+
 
     public Transaction(Trader trader, int year, int value) {
         this.trader = trader;
@@ -30,6 +33,10 @@ public class Transaction {
                 ", year=" + year +
                 ", value=" + value +
                 '}';
+    }
+
+    public Currency getCurrency() {
+        return null;
     }
 
 }
