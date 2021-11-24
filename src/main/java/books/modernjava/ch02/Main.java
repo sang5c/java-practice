@@ -1,10 +1,10 @@
-package modernjava.ch02;
+package books.modernjava.ch02;
 
-import modernjava.ch02.formatter.AppleFancyFormatter;
-import modernjava.ch02.formatter.AppleFormatter;
-import modernjava.ch02.predicate.Predicate;
-import modernjava.ch02.predicate.AppleRedAndHeavyPredicate;
-import modernjava.ch02.quiz.MeaningOfThis;
+import books.modernjava.ch02.formatter.AppleFancyFormatter;
+import books.modernjava.ch02.formatter.AppleFormatter;
+import books.modernjava.ch02.predicate.Predicate;
+import books.modernjava.ch02.predicate.AppleRedAndHeavyPredicate;
+import books.modernjava.ch02.quiz.MeaningOfThis;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static modernjava.ch02.Color.RED;
+import static books.modernjava.ch02.Color.RED;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {

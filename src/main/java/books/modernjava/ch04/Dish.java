@@ -1,4 +1,4 @@
-package modernjava.ch04;
+package books.modernjava.ch04;
 
 public class Dish {
     private final String name;

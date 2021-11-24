@@ -1,6 +1,6 @@
-package modernjava.ch03;
+package books.modernjava.ch03;
 
-import modernjava.ch02.Apple;
+import books.modernjava.ch02.Apple;
 
 import java.util.Comparator;
 

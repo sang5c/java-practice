@@ -1,11 +1,7 @@
-package modernjava.ch05;
+package books.modernjava.ch05;
 
-import modernjava.ch04.Dish;
+import books.modernjava.ch04.Dish;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;

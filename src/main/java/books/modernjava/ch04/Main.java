@@ -1,4 +1,6 @@
-package modernjava.ch04;
+package books.modernjava.ch04;
+
+import books.modernjava.ch04.Dish;
 
 import java.util.ArrayList;
 import java.util.Arrays;

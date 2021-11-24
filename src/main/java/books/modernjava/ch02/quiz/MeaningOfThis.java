@@ -1,6 +1,4 @@
-package modernjava.ch02.quiz;
-
-import java.util.Random;
+package books.modernjava.ch02.quiz;
 
 public class MeaningOfThis {
 

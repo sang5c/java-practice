@@ -1,8 +1,8 @@
-package modernjava.ch02.predicate;
+package books.modernjava.ch02.predicate;
 
-import modernjava.ch02.Apple;
+import books.modernjava.ch02.Apple;
 
-import static modernjava.ch02.Color.GREEN;
+import static books.modernjava.ch02.Color.GREEN;
 
 public class GreenColorPredicate implements Predicate<Apple> {
     @Override

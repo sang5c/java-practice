@@ -1,8 +1,8 @@
-package modernjava.ch03;
+package books.modernjava.ch03;
 
-import modernjava.ch02.Apple;
-import modernjava.ch02.Color;
-import modernjava.ch02.predicate.Predicate;
+import books.modernjava.ch02.Apple;
+import books.modernjava.ch02.Color;
+import books.modernjava.ch02.predicate.Predicate;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import static modernjava.ch02.Color.RED;
+import static books.modernjava.ch02.Color.RED;
 
 public class Main {
     public static void main(String[] args) throws IOException {

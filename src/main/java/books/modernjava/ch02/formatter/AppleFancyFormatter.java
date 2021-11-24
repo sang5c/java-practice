@@ -1,6 +1,6 @@
-package modernjava.ch02.formatter;
+package books.modernjava.ch02.formatter;
 
-import modernjava.ch02.Apple;
+import books.modernjava.ch02.Apple;
 
 public class AppleFancyFormatter implements AppleFormatter {
     @Override

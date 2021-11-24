@@ -1,4 +1,4 @@
-package modernjava.ch02;
+package books.modernjava.ch02;
 
 public class Apple {
     private int weight;

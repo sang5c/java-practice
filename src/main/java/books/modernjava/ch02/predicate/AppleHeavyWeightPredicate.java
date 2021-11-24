@@ -1,6 +1,6 @@
-package modernjava.ch02.predicate;
+package books.modernjava.ch02.predicate;
 
-import modernjava.ch02.Apple;
+import books.modernjava.ch02.Apple;
 
 public class AppleHeavyWeightPredicate implements Predicate<Apple> {
     @Override

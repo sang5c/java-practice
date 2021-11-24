@@ -1,4 +1,4 @@
-package modernjava.ch05;
+package books.modernjava.ch05;
 
 public class Transaction {
     private final Trader trader;
