@@ -1,4 +1,9 @@
 spring:
+  profiles:
+    active: local
+    group:
+      local: oauth
+
   jpa:
 #    show-sql: true
     properties:
