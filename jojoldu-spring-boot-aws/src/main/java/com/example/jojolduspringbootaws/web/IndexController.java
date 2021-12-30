@@ -1,5 +1,7 @@
 package com.example.jojolduspringbootaws.web;
 
+import com.example.jojolduspringbootaws.config.auth.dto.SessionUser;
+import com.example.jojolduspringbootaws.domain.user.User;
 import com.example.jojolduspringbootaws.service.posts.PostsService;
 import com.example.jojolduspringbootaws.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -8,15 +10,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.servlet.http.HttpSession;
+
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
 
     private final PostsService postsService;
+    private final HttpSession httpSession;
 
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("posts", postsService.findAllDesc());
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+        }
         return "index";
     }
 
