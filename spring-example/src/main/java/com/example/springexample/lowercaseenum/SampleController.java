@@ -1,4 +1,4 @@
-package com.example.demoenumlowercase.sample;
+package com.example.springexample.lowercaseenum;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -1,4 +1,4 @@
-package com.example.demoenumlowercase.sample;
+package com.example.springexample.lowercaseenum;
 
 public enum SampleStatus {
     HELLO("HELLO"),

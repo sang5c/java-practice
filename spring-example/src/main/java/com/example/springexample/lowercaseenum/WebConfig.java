@@ -1,6 +1,5 @@
-package com.example.demoenumlowercase;
+package com.example.springexample.lowercaseenum;
 
-import com.example.demoenumlowercase.sample.SampleConverter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
