@@ -1,7 +1,6 @@
 rootProject.name = 'java-practice'
 
+include 'spring-example'
 include 'jojoldu-spring-boot-aws'
 include 'modern-java'
-include 'start'
-
-
+include 'youthcon-spring-boot-tdd-start'
